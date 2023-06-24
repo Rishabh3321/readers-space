@@ -12,6 +12,8 @@ type DefinationArray = Array<Defination>;
 export default function Home() {
   const [value, setValue] = useState<string>("");
   const [definations, setDefinations] = useState<DefinationArray>([]);
+  const [suggest, setSuggest] = useState<Array<string>>([]);
+
   function getUniqueColor(index: number) {
     const colors = [
       "text-red-500",
@@ -27,7 +29,12 @@ export default function Home() {
 
   async function fetchDefination(word: string) {
     let result = await getDefinationAPI(word);
-    console.log(result);
+
+    if (typeof result[0] == "string") {
+      setSuggest(result);
+      setDefinations([]);
+      return;
+    }
 
     let definationsMap = new Map<string, Array<string>>();
     for (let i = 0; i < result.length; i++) {
@@ -49,6 +56,7 @@ export default function Home() {
       };
       definations.push(defination);
     });
+    setSuggest([]);
     setDefinations(definations);
   }
 
@@ -72,24 +80,55 @@ export default function Home() {
             }
           }}
         />
-        <div className="w-full mt-10 pb-20 text-justify flex content-center justify-center">
-          <div className="w-1/3">
-            {definations.map((defination, index) => {
-              return (
-                <div>
-                  <div className={`text-2xl ${getUniqueColor(index)}`}>
-                    {defination.type}
+
+        {definations.length != 0 ? (
+          <div className="w-full mt-10 pb-20 text-justify flex content-center justify-center">
+            <div className="w-1/3">
+              {definations.map((defination, index) => {
+                return (
+                  <div key={index}>
+                    <div className={`text-2xl ${getUniqueColor(index)}`}>
+                      {defination.type}
+                    </div>
+                    <ul className="list-disc list-inside">
+                      {defination.shortdef.map((def, index) => {
+                        return <li key={index}>{def}</li>;
+                      })}
+                    </ul>
                   </div>
-                  <ul className="list-disc list-inside">
-                    {defination.shortdef.map((def) => {
-                      return <li>{def}</li>;
-                    })}
-                  </ul>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        ) : (
+          <> </>
+        )}
+
+        {suggest.length ? (
+          <div className="w-full mt-10 pb-20 text-justify flex content-center justify-center flex-wrap">
+            <div className="w-1/3">
+              <p className="inline-block text-2xl mb-3">Suggestions</p>
+              <ul className="w-full pl-4 list-disc list-inside ">
+                {suggest.map((word, index) => {
+                  return (
+                    <li
+                      key={index}
+                      className="text-lg text-blue-500 cursor-pointer"
+                      onClick={() => {
+                        setValue(word);
+                        fetchDefination(word);
+                      }}
+                    >
+                      {word}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </main>
   );

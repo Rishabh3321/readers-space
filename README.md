@@ -19,5 +19,6 @@ If you want to contribute to this project, you are welcome. Just fork the repo a
 ### Todo:
 
 - [x] MVP
+- [x] Suggestions, in case of typo.
 - [ ] Add more themes.
 - [ ] History
