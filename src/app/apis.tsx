@@ -1,10 +1,4 @@
-const GetDefinationAPIUrl =
-  "https://www.dictionaryapi.com/api/v3/references/collegiate/json";
-
-export const getDefinationAPI = (word: string) => {
-  var url = `${GetDefinationAPIUrl}/${word}?key=${process.env.NEXT_PUBLIC_MERRIAM_API_KEY}`;
-  return fetch(url, {
-    method: "GET",
-    headers: {},
-  }).then((res) => res.json());
+export const getDefinationAPI = async (word: string) => {
+  const res = await fetch("/api/dictionary?word=" + word);
+  return await res.json();
 };
