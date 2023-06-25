@@ -76,8 +76,8 @@ export default function Home() {
             setValue(e.target.value);
           }}
           onKeyDown={(e) => {
-            setPressedWord(pressedWord + e.key);
-            if (e.key === "Enter") {
+            setPressedWord(pressedWord + e.keyCode);
+            if (e.keyCode === 13) {
               fetchDefination(value);
             }
           }}
