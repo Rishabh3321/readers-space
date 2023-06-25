@@ -13,6 +13,7 @@ export default function Home() {
   const [value, setValue] = useState<string>("");
   const [definations, setDefinations] = useState<DefinationArray>([]);
   const [suggest, setSuggest] = useState<Array<string>>([]);
+  const [pressedWord, setPressedWord] = useState<string>("");
 
   function getUniqueColor(index: number) {
     const colors = [
@@ -64,26 +65,28 @@ export default function Home() {
     <main>
       <div className="w-screen h-screen flex justify-center content-start flex-wrap">
         <div className="w-full h-1/3" />
-        <input
-          className="inline-block w-1/3 h-8 text-black text-center rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
-          type="text"
-          value={value}
-          onChange={(e) => {
-            if (e.target.value === "") {
-              setDefinations([]);
-            }
-            setValue(e.target.value);
+        <form
+          className="w-full flex justify-center content-center items-stretch"
+          onSubmit={(e) => {
+            e.preventDefault();
+            fetchDefination(value);
           }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              fetchDefination(value);
-            }
-          }}
-        />
-
+        >
+          <input
+            className="block xs:w-5/6 md:w-1/3 h-8 text-black text-center rounded-sm focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-transparent"
+            type="text"
+            value={value}
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setDefinations([]);
+              }
+              setValue(e.target.value);
+            }}
+          />
+        </form>
         {definations.length != 0 ? (
           <div className="w-full mt-10 pb-20 text-justify flex content-center justify-center">
-            <div className="w-1/3">
+            <div className="xs:w-5/6 md:w-1/3">
               {definations.map((defination, index) => {
                 return (
                   <div key={index}>
