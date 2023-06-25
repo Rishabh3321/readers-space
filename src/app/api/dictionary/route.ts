@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const GetDefinationAPIUrl =
   "https://www.dictionaryapi.com/api/v3/references/collegiate/json";
 
-export const getDefinationAPI = async (word: string) => {
+const getDefinationAPI = async (word: string) => {
   var url = `${GetDefinationAPIUrl}/${word}?key=${process.env.MERRIAM_API_KEY}`;
   const res = await fetch(url);
   return await res.json();
