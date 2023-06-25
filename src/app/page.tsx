@@ -13,6 +13,7 @@ export default function Home() {
   const [value, setValue] = useState<string>("");
   const [definations, setDefinations] = useState<DefinationArray>([]);
   const [suggest, setSuggest] = useState<Array<string>>([]);
+  const [pressedWord, setPressedWord] = useState<string>("");
 
   function getUniqueColor(index: number) {
     const colors = [
@@ -75,12 +76,13 @@ export default function Home() {
             setValue(e.target.value);
           }}
           onKeyDown={(e) => {
+            setPressedWord(pressedWord + e.key);
             if (e.key === "Enter") {
               fetchDefination(value);
             }
           }}
         />
-
+        <textarea value={pressedWord} className="w-full  text-black"></textarea>
         {definations.length != 0 ? (
           <div className="w-full mt-10 pb-20 text-justify flex content-center justify-center">
             <div className="w-1/3">
