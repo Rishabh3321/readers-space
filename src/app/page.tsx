@@ -75,7 +75,7 @@ export default function Home() {
             setValue(e.target.value);
           }}
           onKeyDown={(e) => {
-            if (e.code === "Enter") {
+            if (e.key === "Enter") {
               fetchDefination(value);
             }
           }}
