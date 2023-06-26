@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { getDefinationAPI } from "./apis";
+import Image from "next/image";
 
 type Defination = {
   type: string;
@@ -13,7 +14,7 @@ export default function Home() {
   const [value, setValue] = useState<string>("");
   const [definations, setDefinations] = useState<DefinationArray>([]);
   const [suggest, setSuggest] = useState<Array<string>>([]);
-  const [pressedWord, setPressedWord] = useState<string>("");
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
   function getUniqueColor(index: number) {
     const colors = [
@@ -64,7 +65,54 @@ export default function Home() {
   return (
     <main>
       <div className="w-screen h-screen flex justify-center content-start flex-wrap">
-        <div className="w-full h-1/3" />
+        <div className="w-full h-1/3">
+          <div className="w-full flex justify-end">
+            {isFullScreen ? (
+              <Image
+                src="fullscreen_exit.svg"
+                alt="fullscreen"
+                width="30"
+                height="30"
+                className="cursor-pointer bg-white p-1 mx-1 my-2 rounded-sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.exitFullscreen();
+                  setIsFullScreen(false);
+                }}
+              />
+            ) : (
+              <Image
+                src="fullscreen.svg"
+                alt="fullscreen"
+                width="30"
+                height="30"
+                className="cursor-pointer bg-white p-1 mx-1 my-2 rounded-sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.documentElement.requestFullscreen();
+                  setIsFullScreen(true);
+                }}
+              />
+            )}
+            <div className="relative flex flex-col items-center group">
+              <Image
+                src="help.svg"
+                alt="help"
+                width="30"
+                height="30"
+                className="cursor-pointer bg-white p-1 mx-1 my-2 rounded-sm"
+              />
+              <div className="absolute top-12 right-3 flex-col items-end hidden group-hover:flex">
+                <div className="w-3 h-3 mb-[-0.4rem] mr-[0.11rem] rotate-45 bg-white"></div>
+                <span className="relative w-32 z-10 p-2 text-xs leading-none text-black whitespace-break-spaces bg-white shadow-lg">
+                  Readers space is a minimalistic dictionary app. Just type the
+                  word and press enter to get the defination. I just built this
+                  app as a hobby project. Powered by Merriam-Webster.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
         <form
           className="w-full flex justify-center content-center items-stretch"
           onSubmit={(e) => {

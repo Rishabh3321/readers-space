@@ -20,5 +20,6 @@ If you want to contribute to this project, you are welcome. Just fork the repo a
 
 - [x] MVP
 - [x] Suggestions, in case of typo.
+- [x] Full screen mode.
 - [ ] Add more themes.
 - [ ] History
