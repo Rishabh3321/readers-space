@@ -124,10 +124,10 @@ export default function Home() {
                     <li
                       key={index}
                       className={
-                        `text-lg bg-gray-200 text-black cursor-pointer  border-gray-200 border-2 hover:border-blue-400 ` +
+                        `text-lg cursor-pointer  border-gray-200 border-2 hover:border-blue-400 ` +
                         (index === activeSuggestion
-                          ? " bg-blue-400 text-white"
-                          : "")
+                          ? "bg-blue-400 text-white"
+                          : "bg-gray-200 text-black ")
                       }
                       onClick={() => {
                         setWord(word);
