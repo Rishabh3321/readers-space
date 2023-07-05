@@ -19,7 +19,7 @@ If you want to contribute to this project, you are welcome. Just fork the repo a
 ### Todo:
 
 - [x] MVP
-- [x] Suggestions, in case of typo.
+- [x] Autocomplete.
 - [x] Full screen mode.
 - [ ] Add more themes.
 - [ ] History
